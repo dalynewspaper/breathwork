@@ -1,17 +1,13 @@
-//
-//  BreathWorkApp.swift
-//  BreathWork
-//
-//  Created by Brian Daly on 14.06.24.
-//
-
 import SwiftUI
 
 @main
 struct BreathWorkApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .frame(width: 400, height: 400)
         }
     }
 }

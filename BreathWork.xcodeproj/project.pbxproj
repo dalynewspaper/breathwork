@@ -14,6 +14,10 @@
 		95EEB0612C1C8C81009CF84C /* BreathWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0602C1C8C81009CF84C /* BreathWorkTests.swift */; };
 		95EEB06B2C1C8C81009CF84C /* BreathWorkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB06A2C1C8C81009CF84C /* BreathWorkUITests.swift */; };
 		95EEB06D2C1C8C81009CF84C /* BreathWorkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB06C2C1C8C81009CF84C /* BreathWorkUITestsLaunchTests.swift */; };
+		95EEB07A2C1CBE96009CF84C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0792C1CBE96009CF84C /* AppDelegate.swift */; };
+		95EEB07C2C1CF0B5009CF84C /* CustomWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB07B2C1CF0B5009CF84C /* CustomWindow.swift */; };
+		95EEB0802C1D05C7009CF84C /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 95EEB07F2C1D05C7009CF84C /* KeyboardShortcuts */; };
+		95EEB0822C1D078D009CF84C /* KeyEventHandlingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0812C1D078D009CF84C /* KeyEventHandlingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,9 @@
 		95EEB0662C1C8C81009CF84C /* BreathWorkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreathWorkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95EEB06A2C1C8C81009CF84C /* BreathWorkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathWorkUITests.swift; sourceTree = "<group>"; };
 		95EEB06C2C1C8C81009CF84C /* BreathWorkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathWorkUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		95EEB0792C1CBE96009CF84C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		95EEB07B2C1CF0B5009CF84C /* CustomWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWindow.swift; sourceTree = "<group>"; };
+		95EEB0812C1D078D009CF84C /* KeyEventHandlingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyEventHandlingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95EEB0802C1D05C7009CF84C /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +83,9 @@
 		95EEB0422C1C8C80009CF84C = {
 			isa = PBXGroup;
 			children = (
+				95EEB0812C1D078D009CF84C /* KeyEventHandlingView.swift */,
+				95EEB07B2C1CF0B5009CF84C /* CustomWindow.swift */,
+				95EEB0792C1CBE96009CF84C /* AppDelegate.swift */,
 				95EEB04D2C1C8C80009CF84C /* BreathWork */,
 				95EEB05F2C1C8C81009CF84C /* BreathWorkTests */,
 				95EEB0692C1C8C81009CF84C /* BreathWorkUITests */,
@@ -145,6 +156,9 @@
 			dependencies = (
 			);
 			name = BreathWork;
+			packageProductDependencies = (
+				95EEB07F2C1D05C7009CF84C /* KeyboardShortcuts */,
+			);
 			productName = BreathWork;
 			productReference = 95EEB04B2C1C8C80009CF84C /* BreathWork.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +231,9 @@
 				Base,
 			);
 			mainGroup = 95EEB0422C1C8C80009CF84C;
+			packageReferences = (
+				95EEB07E2C1D05C7009CF84C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+			);
 			productRefGroup = 95EEB04C2C1C8C80009CF84C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,6 +276,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95EEB0822C1D078D009CF84C /* KeyEventHandlingView.swift in Sources */,
+				95EEB07C2C1CF0B5009CF84C /* CustomWindow.swift in Sources */,
+				95EEB07A2C1CBE96009CF84C /* AppDelegate.swift in Sources */,
 				95EEB0512C1C8C80009CF84C /* ContentView.swift in Sources */,
 				95EEB04F2C1C8C80009CF84C /* BreathWorkApp.swift in Sources */,
 			);
@@ -573,6 +593,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		95EEB07E2C1D05C7009CF84C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		95EEB07F2C1D05C7009CF84C /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95EEB07E2C1D05C7009CF84C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 95EEB0432C1C8C80009CF84C /* Project object */;
 }
