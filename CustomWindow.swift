@@ -1,8 +1,11 @@
-//
-//  CustomWindow.swift
-//  BreathWork
-//
-//  Created by Brian Daly on 14.06.24.
-//
+import Cocoa
 
-import Foundation
+class CustomWindow: NSWindow {
+    override var canBecomeKey: Bool {
+        return true
+    }
+
+    override var canBecomeMain: Bool {
+        return true
+    }
+}

@@ -1,11 +1,20 @@
+//
+//  BreathingSessionView.swift
+//  BreathWork
+//
+//  Created by Brian Daly on 17.06.24.
+//
+
 import SwiftUI
 
-struct ContentView: View {
+struct BreathingSessionView: View {
     @State private var phase = 0
     @State private var barHeight: CGFloat = 0
     @State private var totalHeight: CGFloat = 0
     @State private var selectedTheme: Theme = .defaultTheme
     @State private var progress: CGFloat = 0
+    @State private var remainingTime: Double
+    @State private var sessionActive = true
 
     let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
 
@@ -42,6 +51,24 @@ struct ContentView: View {
                         .frame(width: geometry.size.width * 0.8)
                         .padding(.top, 20)
                     Spacer()
+                }
+
+                // Timer and Session End Handling
+                VStack {
+                    Text("Time Remaining: \(Int(remainingTime))s")
+                        .font(.headline)
+                        .padding()
+                    Spacer()
+                }
+                .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
+                    if remainingTime > 0 {
+                        remainingTime -= 1
+                    } else {
+                        sessionActive = false
+                        phase = 0
+                        barHeight = 15
+                        progress = 0
+                    }
                 }
 
                 // Key Event Handling View
@@ -150,21 +177,21 @@ enum Theme: String, CaseIterable, Identifiable {
             return [Color.orange.opacity(0.7), Color.yellow.opacity(0.7)]
         }
     }
-
     var exhaleColors: [Color] {
-        switch self {
-        case .defaultTheme:
-            return [Color.red.opacity(0.7), Color.orange.opacity(0.7)]
-        case .calmingTheme:
-            return [Color.blue.opacity(0.7), Color.green.opacity(0.7)]
-        case .energizingTheme:
-            return [Color.yellow.opacity(0.7), Color.red.opacity(0.7)]
-        }
+    switch self {
+    case .defaultTheme:
+    return [Color.red.opacity(0.7), Color.orange.opacity(0.7)]
+    case .calmingTheme:
+    return [Color.blue.opacity(0.7), Color.green.opacity(0.7)]
+    case .energizingTheme:
+    return [Color.yellow.opacity(0.7), Color.red.opacity(0.7)]
     }
-}
+    }
+    }
 
-struct ContentView_Previews: PreviewProvider {
+    struct BreathingSessionView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+    BreathingSessionView(remainingTime: 60)
     }
-}
+    }
+
