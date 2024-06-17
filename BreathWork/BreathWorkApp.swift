@@ -7,7 +7,7 @@ struct BreathWorkApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(width: 400, height: 400)
+                .frame(width: 800, height: 600)
         }
     }
 }

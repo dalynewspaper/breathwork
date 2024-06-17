@@ -16,8 +16,13 @@
 		95EEB06D2C1C8C81009CF84C /* BreathWorkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB06C2C1C8C81009CF84C /* BreathWorkUITestsLaunchTests.swift */; };
 		95EEB07A2C1CBE96009CF84C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0792C1CBE96009CF84C /* AppDelegate.swift */; };
 		95EEB07C2C1CF0B5009CF84C /* CustomWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB07B2C1CF0B5009CF84C /* CustomWindow.swift */; };
-		95EEB0802C1D05C7009CF84C /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 95EEB07F2C1D05C7009CF84C /* KeyboardShortcuts */; };
 		95EEB0822C1D078D009CF84C /* KeyEventHandlingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0812C1D078D009CF84C /* KeyEventHandlingView.swift */; };
+		95EEB0842C20A44A009CF84C /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0832C20A44A009CF84C /* WelcomeView.swift */; };
+		95EEB0862C20A468009CF84C /* DurationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0852C20A468009CF84C /* DurationSelectionView.swift */; };
+		95EEB0882C20A47F009CF84C /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0872C20A47F009CF84C /* CountdownView.swift */; };
+		95EEB08A2C20A511009CF84C /* BreathingSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB0892C20A511009CF84C /* BreathingSessionView.swift */; };
+		95EEB08C2C20D023009CF84C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB08B2C20D023009CF84C /* Theme.swift */; };
+		95EEB08E2C20E38A009CF84C /* CustomButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB08D2C20E38A009CF84C /* CustomButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +57,12 @@
 		95EEB0792C1CBE96009CF84C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95EEB07B2C1CF0B5009CF84C /* CustomWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWindow.swift; sourceTree = "<group>"; };
 		95EEB0812C1D078D009CF84C /* KeyEventHandlingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyEventHandlingView.swift; sourceTree = "<group>"; };
+		95EEB0832C20A44A009CF84C /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		95EEB0852C20A468009CF84C /* DurationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationSelectionView.swift; sourceTree = "<group>"; };
+		95EEB0872C20A47F009CF84C /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
+		95EEB0892C20A511009CF84C /* BreathingSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingSessionView.swift; sourceTree = "<group>"; };
+		95EEB08B2C20D023009CF84C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		95EEB08D2C20E38A009CF84C /* CustomButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +70,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95EEB0802C1D05C7009CF84C /* KeyboardShortcuts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +93,12 @@
 		95EEB0422C1C8C80009CF84C = {
 			isa = PBXGroup;
 			children = (
+				95EEB08D2C20E38A009CF84C /* CustomButtonStyle.swift */,
+				95EEB08B2C20D023009CF84C /* Theme.swift */,
+				95EEB0892C20A511009CF84C /* BreathingSessionView.swift */,
+				95EEB0872C20A47F009CF84C /* CountdownView.swift */,
+				95EEB0852C20A468009CF84C /* DurationSelectionView.swift */,
+				95EEB0832C20A44A009CF84C /* WelcomeView.swift */,
 				95EEB0812C1D078D009CF84C /* KeyEventHandlingView.swift */,
 				95EEB07B2C1CF0B5009CF84C /* CustomWindow.swift */,
 				95EEB0792C1CBE96009CF84C /* AppDelegate.swift */,
@@ -157,7 +173,6 @@
 			);
 			name = BreathWork;
 			packageProductDependencies = (
-				95EEB07F2C1D05C7009CF84C /* KeyboardShortcuts */,
 			);
 			productName = BreathWork;
 			productReference = 95EEB04B2C1C8C80009CF84C /* BreathWork.app */;
@@ -277,8 +292,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				95EEB0822C1D078D009CF84C /* KeyEventHandlingView.swift in Sources */,
+				95EEB0842C20A44A009CF84C /* WelcomeView.swift in Sources */,
+				95EEB08A2C20A511009CF84C /* BreathingSessionView.swift in Sources */,
+				95EEB0882C20A47F009CF84C /* CountdownView.swift in Sources */,
+				95EEB0862C20A468009CF84C /* DurationSelectionView.swift in Sources */,
+				95EEB08E2C20E38A009CF84C /* CustomButtonStyle.swift in Sources */,
 				95EEB07C2C1CF0B5009CF84C /* CustomWindow.swift in Sources */,
 				95EEB07A2C1CBE96009CF84C /* AppDelegate.swift in Sources */,
+				95EEB08C2C20D023009CF84C /* Theme.swift in Sources */,
 				95EEB0512C1C8C80009CF84C /* ContentView.swift in Sources */,
 				95EEB04F2C1C8C80009CF84C /* BreathWorkApp.swift in Sources */,
 			);
@@ -604,14 +625,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		95EEB07F2C1D05C7009CF84C /* KeyboardShortcuts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 95EEB07E2C1D05C7009CF84C /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
-			productName = KeyboardShortcuts;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 95EEB0432C1C8C80009CF84C /* Project object */;
 }

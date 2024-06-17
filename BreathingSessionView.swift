@@ -1,20 +1,12 @@
-//
-//  BreathingSessionView.swift
-//  BreathWork
-//
-//  Created by Brian Daly on 17.06.24.
-//
-
 import SwiftUI
 
 struct BreathingSessionView: View {
+    var remainingTime: Double
+
     @State private var phase = 0
     @State private var barHeight: CGFloat = 0
     @State private var totalHeight: CGFloat = 0
-    @State private var selectedTheme: Theme = .defaultTheme
     @State private var progress: CGFloat = 0
-    @State private var remainingTime: Double
-    @State private var sessionActive = true
 
     let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
 
@@ -53,24 +45,6 @@ struct BreathingSessionView: View {
                     Spacer()
                 }
 
-                // Timer and Session End Handling
-                VStack {
-                    Text("Time Remaining: \(Int(remainingTime))s")
-                        .font(.headline)
-                        .padding()
-                    Spacer()
-                }
-                .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
-                    if remainingTime > 0 {
-                        remainingTime -= 1
-                    } else {
-                        sessionActive = false
-                        phase = 0
-                        barHeight = 15
-                        progress = 0
-                    }
-                }
-
                 // Key Event Handling View
                 KeyEventHandlingView { event in
                     if event.keyCode == 11 && event.modifierFlags.contains(.command) { // 11 is the keyCode for 'B'
@@ -85,11 +59,11 @@ struct BreathingSessionView: View {
             updateProgress()
         }
     }
-    
+
     private func getCurrentDuration() -> Double {
         return 4.0 // Each phase (inhale, hold, exhale, hold) is 4 seconds
     }
-    
+
     private func nextPhase(totalHeight: CGFloat) {
         phase = (phase + 1) % 4
         switch phase {
@@ -126,7 +100,7 @@ struct BreathingSessionView: View {
         default:
             // Inhale or Exhale phase (blue gradient)
             return LinearGradient(
-                gradient: selectedTheme.gradient,
+                gradient: Theme.defaultTheme.gradient,
                 startPoint: .top,
                 endPoint: .bottom
             )
@@ -137,61 +111,3 @@ struct BreathingSessionView: View {
         // Toggle session start/stop logic here
     }
 }
-
-enum Theme: String, CaseIterable, Identifiable {
-    case defaultTheme
-    case calmingTheme
-    case energizingTheme
-
-    var id: String { self.rawValue }
-
-    var gradient: Gradient {
-        switch self {
-        case .defaultTheme:
-            return Gradient(colors: [Color.blue, Color.purple])
-        case .calmingTheme:
-            return Gradient(colors: [Color.green, Color.blue])
-        case .energizingTheme:
-            return Gradient(colors: [Color.red, Color.orange])
-        }
-    }
-
-    var inhaleColors: [Color] {
-        switch self {
-        case .defaultTheme:
-            return [Color.blue.opacity(0.7), Color.purple.opacity(0.7)]
-        case .calmingTheme:
-            return [Color.green.opacity(0.7), Color.blue.opacity(0.7)]
-        case .energizingTheme:
-            return [Color.red.opacity(0.7), Color.orange.opacity(0.7)]
-        }
-    }
-
-    var holdColors: [Color] {
-        switch self {
-        case .defaultTheme:
-            return [Color.green.opacity(0.7), Color.yellow.opacity(0.7)]
-        case .calmingTheme:
-            return [Color.blue.opacity(0.7), Color.purple.opacity(0.7)]
-        case .energizingTheme:
-            return [Color.orange.opacity(0.7), Color.yellow.opacity(0.7)]
-        }
-    }
-    var exhaleColors: [Color] {
-    switch self {
-    case .defaultTheme:
-    return [Color.red.opacity(0.7), Color.orange.opacity(0.7)]
-    case .calmingTheme:
-    return [Color.blue.opacity(0.7), Color.green.opacity(0.7)]
-    case .energizingTheme:
-    return [Color.yellow.opacity(0.7), Color.red.opacity(0.7)]
-    }
-    }
-    }
-
-    struct BreathingSessionView_Previews: PreviewProvider {
-    static var previews: some View {
-    BreathingSessionView(remainingTime: 60)
-    }
-    }
-
