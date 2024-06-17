@@ -10,32 +10,47 @@ struct CountdownView: View {
         VStack {
             Text("Starting in...")
                 .font(.largeTitle)
+                .foregroundColor(.white)
                 .padding(.bottom, 20)
+
             Text("\(countdown)")
-                .font(.system(size: 60))
-                .fontWeight(.bold)
-                .padding(.bottom, 20)
-            Button("Cancel") {
+                .font(.system(size: 100))
+                .foregroundColor(.white)
+
+            Button(action: {
                 showCountdown = false
                 showDurationSelection = true
-                countdown = 3 // Reset countdown
+            }) {
+                Text("Cancel")
+                    .font(.title)
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
-            .buttonStyle(CustomButtonStyle())
+            .padding(.top, 20)
         }
-        .onAppear {
-            startCountdown()
-        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.edgesIgnoringSafeArea(.all))
+        .onAppear(perform: startCountdown)
     }
 
     private func startCountdown() {
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            if self.countdown > 0 {
-                self.countdown -= 1
+        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if countdown > 0 {
+                countdown -= 1
             } else {
                 timer.invalidate()
                 showCountdown = false
                 showBreathingSession = true
             }
         }
+        timer.fire()
+    }
+}
+
+struct CountdownView_Previews: PreviewProvider {
+    static var previews: some View {
+        CountdownView(showCountdown: .constant(true), countdown: .constant(3), showBreathingSession: .constant(false), showDurationSelection: .constant(false))
     }
 }

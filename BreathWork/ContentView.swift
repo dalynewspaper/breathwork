@@ -19,8 +19,14 @@ struct ContentView: View {
                 DurationSelectionView(showDurationSelection: $showDurationSelection, selectedDuration: $selectedDuration, showCountdown: $showCountdown)
             } else if showCountdown {
                 CountdownView(showCountdown: $showCountdown, countdown: $countdown, showBreathingSession: $showBreathingSession, showDurationSelection: $showDurationSelection)
+                    .onDisappear {
+                        countdown = 3
+                    }
             } else if showBreathingSession {
                 BreathingSessionView(remainingTime: selectedDuration)
+                    .onDisappear {
+                        showDurationSelection = true
+                    }
             }
         }
         .animation(.easeInOut, value: showWelcome)
