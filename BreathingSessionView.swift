@@ -8,11 +8,17 @@ struct BreathingSessionView: View {
     @State private var remainingTime: Double
     @State private var backgroundColor: Color = Color.blue.opacity(0.1)
     @State private var showSummary = false
+    @State private var countdownText: String = "00:00"
+    @State private var phaseText: String = "Hold"
+    @State private var showCancel = false
+    @Binding var showDurationSelection: Bool
 
     let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
+    let sessionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-    init(remainingTime: Double) {
+    init(remainingTime: Double, showDurationSelection: Binding<Bool>) {
         self._remainingTime = State(initialValue: remainingTime)
+        self._showDurationSelection = showDurationSelection
     }
 
     var body: some View {
@@ -24,14 +30,11 @@ struct BreathingSessionView: View {
                     .animation(.easeInOut(duration: 4))
 
                 VStack {
-                    Spacer()
-                    
-                    // Countdown Timer
-                    Text("\(Int(remainingTime))")
+                    Text(countdownText)
                         .font(.largeTitle)
                         .foregroundColor(.white)
-                        .padding(.top, 20)
-                    
+                        .padding(.top, 40)
+
                     Spacer()
 
                     // Breathing Guide Circle
@@ -43,7 +46,7 @@ struct BreathingSessionView: View {
                     Spacer()
 
                     // Instruction Text
-                    Text(getCurrentPhaseText())
+                    Text(phaseText)
                         .font(.largeTitle)
                         .foregroundColor(.white)
                         .padding()
@@ -59,13 +62,44 @@ struct BreathingSessionView: View {
                 .onAppear {
                     totalHeight = geometry.size.height
                     startSession()
+                    updateCountdownText()
                 }
                 .onReceive(timer) { _ in
                     withAnimation(.easeInOut(duration: 4)) {
                         nextPhase(totalHeight: geometry.size.height)
                     }
-                    updateRemainingTime()
                 }
+                .onReceive(sessionTimer) { _ in
+                    updateRemainingTime()
+                    updateCountdownText()
+                }
+
+                // Cancel Button
+                if showCancel {
+                    VStack {
+                        HStack {
+                            Button(action: {
+                                showSummary = false
+                                remainingTime = 0
+                                showDurationSelection = true
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundColor(.white)
+                                    .background(Color.black.opacity(0.6))
+                                    .clipShape(Circle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .padding()
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                }
+            }
+            .onHover { hovering in
+                showCancel = hovering
             }
             .sheet(isPresented: $showSummary) {
                 SessionSummaryView(showSummary: $showSummary)
@@ -97,13 +131,13 @@ struct BreathingSessionView: View {
     private func getCurrentColor() -> Color {
         switch phase {
         case 0:
-            return Color.green.opacity(0.3)
+            return Color.green.opacity(0.3) // Inhale: Green for calmness and tranquility
         case 1:
-            return Color.yellow.opacity(0.3)
+            return Color.yellow.opacity(0.3) // Hold: Yellow for energy and focus
         case 2:
-            return Color.red.opacity(0.3)
+            return Color.blue.opacity(0.3) // Exhale: Blue for relaxation
         case 3:
-            return Color.purple.opacity(0.3)
+            return Color.purple.opacity(0.3) // Hold: Purple for balance and mindfulness
         default:
             return Color.blue.opacity(0.1)
         }
@@ -112,6 +146,7 @@ struct BreathingSessionView: View {
     private func nextPhase(totalHeight: CGFloat) {
         phase = (phase + 1) % 4
         backgroundColor = getCurrentColor()
+        phaseText = getCurrentPhaseText()
         switch phase {
         case 0:
             barHeight = totalHeight * 0.7 // Inhale
@@ -136,8 +171,14 @@ struct BreathingSessionView: View {
 
     private func updateRemainingTime() {
         if remainingTime > 0 {
-            remainingTime -= 4
+            remainingTime -= 1
         }
+    }
+
+    private func updateCountdownText() {
+        let minutes = Int(remainingTime) / 60
+        let seconds = Int(remainingTime) % 60
+        countdownText = String(format: "%02d:%02d", minutes, seconds)
     }
 }
 
@@ -180,6 +221,6 @@ struct SessionSummaryView: View {
 
 struct BreathingSessionView_Previews: PreviewProvider {
     static var previews: some View {
-        BreathingSessionView(remainingTime: 60)
+        BreathingSessionView(remainingTime: 60, showDurationSelection: .constant(false))
     }
 }
