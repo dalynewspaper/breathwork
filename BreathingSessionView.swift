@@ -1,20 +1,20 @@
 import SwiftUI
 
 struct BreathingSessionView: View {
-    @State private var phase = 0
+    @State private var phase = -1 // Start with -1 to handle the first phase properly
     @State private var barHeight: CGFloat = 15
     @State private var totalHeight: CGFloat = 0
-    @State private var progress: CGFloat = 0
     @State private var remainingTime: Double
     @State private var backgroundColor: Color = Color.blue.opacity(0.1)
     @State private var showSummary = false
-    @State private var countdownText: String = "00:00"
-    @State private var phaseText: String = "Hold"
+    @State private var phaseText: String = "Get Ready"
     @State private var showCancel = false
     @Binding var showDurationSelection: Bool
 
-    let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
-    let sessionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let phaseDuration: Double = 4.0
+    @State private var countdownText: String = "00:00"
+
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     init(remainingTime: Double, showDurationSelection: Binding<Bool>) {
         self._remainingTime = State(initialValue: remainingTime)
@@ -27,7 +27,7 @@ struct BreathingSessionView: View {
                 backgroundColor
                     .edgesIgnoringSafeArea(.all)
                     .transition(.opacity)
-                    .animation(.easeInOut(duration: 4))
+                    .animation(.easeInOut(duration: phaseDuration))
 
                 VStack {
                     Text(countdownText)
@@ -41,7 +41,7 @@ struct BreathingSessionView: View {
                     Circle()
                         .fill(Color.white.opacity(0.8))
                         .frame(width: barHeight, height: barHeight)
-                        .animation(.easeInOut(duration: 4))
+                        .animation(.easeInOut(duration: phaseDuration))
 
                     Spacer()
 
@@ -52,12 +52,6 @@ struct BreathingSessionView: View {
                         .padding()
                         .transition(.scale)
                         .animation(.easeInOut(duration: 0.5))
-
-                    // Progress Bar
-                    ProgressView(value: progress, total: 1.0)
-                        .progressViewStyle(LinearProgressViewStyle(tint: Color.white))
-                        .frame(width: geometry.size.width * 0.8)
-                        .padding(.bottom, 20)
                 }
                 .onAppear {
                     totalHeight = geometry.size.height
@@ -65,44 +59,30 @@ struct BreathingSessionView: View {
                     updateCountdownText()
                 }
                 .onReceive(timer) { _ in
-                    withAnimation(.easeInOut(duration: 4)) {
-                        nextPhase(totalHeight: geometry.size.height)
+                    if remainingTime > 0 {
+                        remainingTime -= 1
+                        updateCountdownText()
+                        if Int(remainingTime) % Int(phaseDuration) == 0 {
+                            withAnimation(.easeInOut(duration: phaseDuration)) {
+                                nextPhase(totalHeight: geometry.size.height)
+                            }
+                        }
+                    } else {
+                        showSummary = true
                     }
-                }
-                .onReceive(sessionTimer) { _ in
-                    updateRemainingTime()
-                    updateCountdownText()
                 }
 
-                // Cancel Button
+                // Exit Button
                 if showCancel {
-                    VStack {
-                        HStack {
-                            Button(action: {
-                                showSummary = false
-                                remainingTime = 0
-                                showDurationSelection = true
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundColor(.white)
-                                    .background(Color.black.opacity(0.6))
-                                    .clipShape(Circle())
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .padding()
-                            Spacer()
-                        }
-                        Spacer()
-                    }
+                    ExitButtonView(showDurationSelection: $showDurationSelection)
+                        .position(x: 40, y: 40)
                 }
             }
             .onHover { hovering in
                 showCancel = hovering
             }
             .sheet(isPresented: $showSummary) {
-                SessionSummaryView(showSummary: $showSummary)
+                SessionSummaryView(showSummary: $showSummary, showDurationSelection: $showDurationSelection)
             }
         }
     }
@@ -124,7 +104,7 @@ struct BreathingSessionView: View {
         case 3:
             return "Hold"
         default:
-            return ""
+            return "Get Ready"
         }
     }
 
@@ -159,68 +139,11 @@ struct BreathingSessionView: View {
         default:
             break
         }
-        updateProgress()
-    }
-
-    private func updateProgress() {
-        progress = 0
-        withAnimation(.linear(duration: 4)) {
-            progress = 1
-        }
-    }
-
-    private func updateRemainingTime() {
-        if remainingTime > 0 {
-            remainingTime -= 1
-        }
     }
 
     private func updateCountdownText() {
         let minutes = Int(remainingTime) / 60
         let seconds = Int(remainingTime) % 60
         countdownText = String(format: "%02d:%02d", minutes, seconds)
-    }
-}
-
-struct SessionSummaryView: View {
-    @Binding var showSummary: Bool
-
-    var body: some View {
-        VStack {
-            Text("Session Complete")
-                .font(.largeTitle)
-                .padding()
-
-            Text("Great job! You've completed your breathing session.")
-                .font(.title2)
-                .padding()
-
-            Button(action: {
-                showSummary = false
-            }) {
-                Text("Restart")
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-            .padding()
-
-            Button(action: {
-                showSummary = false
-            }) {
-                Text("Return to Main Menu")
-                    .padding()
-                    .background(Color.gray)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-            }
-        }
-    }
-}
-
-struct BreathingSessionView_Previews: PreviewProvider {
-    static var previews: some View {
-        BreathingSessionView(remainingTime: 60, showDurationSelection: .constant(false))
     }
 }

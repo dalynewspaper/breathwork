@@ -40,9 +40,3 @@ struct ContentView: View {
         .transition(.opacity)
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
