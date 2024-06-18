@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95830FAD2C221A0A00547D47 /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95830FAC2C221A0A00547D47 /* info.plist */; };
 		95E304922C21D3AF00536254 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304912C21D3AF00536254 /* ExitButtonView.swift */; };
 		95E304942C21D3C600536254 /* CountdownTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304932C21D3C600536254 /* CountdownTimerView.swift */; };
 		95E304962C21D5EF00536254 /* CustomExitButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304952C21D5EF00536254 /* CustomExitButtonStyle.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		95830FAC2C221A0A00547D47 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
 		95E304912C21D3AF00536254 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		95E304932C21D3C600536254 /* CountdownTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerView.swift; sourceTree = "<group>"; };
 		95E304952C21D5EF00536254 /* CustomExitButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitButtonStyle.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		95EEB0422C1C8C80009CF84C = {
 			isa = PBXGroup;
 			children = (
+				95830FAC2C221A0A00547D47 /* info.plist */,
 				95E304972C21D6BF00536254 /* SessionSummaryView.swift */,
 				95E304952C21D5EF00536254 /* CustomExitButtonStyle.swift */,
 				95E304932C21D3C600536254 /* CountdownTimerView.swift */,
@@ -249,7 +252,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 95EEB0462C1C8C80009CF84C /* Build configuration list for PBXProject "BreathWork" */;
+			buildConfigurationList = 95EEB0462C1C8C80009CF84C /* Build configuration list for PBXProject "BreathAtWork" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -279,6 +282,7 @@
 			files = (
 				95EEB0562C1C8C80009CF84C /* Preview Assets.xcassets in Resources */,
 				95EEB0532C1C8C80009CF84C /* Assets.xcassets in Resources */,
+				95830FAD2C221A0A00547D47 /* info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -463,6 +468,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -477,21 +483,29 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = BreathWork/BreathWork.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BreathWork/Preview Content\"";
+				DEVELOPMENT_TEAM = 3BG4J3LYQD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BreathAtWork;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = BD.BreathWork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.briandaly.BreathWork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -502,21 +516,29 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = BreathWork/BreathWork.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"BreathWork/Preview Content\"";
+				DEVELOPMENT_TEAM = 3BG4J3LYQD;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = BreathAtWork;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = BD.BreathWork;
+				PRODUCT_BUNDLE_IDENTIFIER = com.briandaly.BreathWork;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -593,7 +615,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		95EEB0462C1C8C80009CF84C /* Build configuration list for PBXProject "BreathWork" */ = {
+		95EEB0462C1C8C80009CF84C /* Build configuration list for PBXProject "BreathAtWork" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95EEB06E2C1C8C81009CF84C /* Debug */,
