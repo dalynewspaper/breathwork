@@ -7,9 +7,20 @@ struct DurationSelectionView: View {
 
     var body: some View {
         VStack {
+            Text("Box Breathing")
+                .font(.largeTitle)  // Make the title larger
+                .fontWeight(.bold)  // Make the title bold
+                .padding(.bottom, 10)
+            
+            Text("Inhale for 4 seconds, hold the breath for 4 seconds, exhale for 4 seconds, and hold the breath again for 4 seconds. Used to calm the mind, reduce stress, and improve concentration. It’s often used by athletes and military personnel to stay focused under pressure.")
+                .font(.body)  // Set the font size for the subheading
+                .multilineTextAlignment(.center)  // Center the subheading text
+                .padding(.bottom, 20)
+
             Text("Select Your Breathing Duration")
                 .font(.title2)
                 .padding(.bottom, 20)
+
             HStack(spacing: 20) {
                 Button("1 Minute") {
                     selectedDuration = 60
@@ -32,5 +43,6 @@ struct DurationSelectionView: View {
             }
             .padding()
         }
+        .padding()  // Add padding around the entire VStack for better spacing
     }
 }
