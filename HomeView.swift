@@ -15,93 +15,101 @@ struct HomeView: View {
     ]
 
     var body: some View {
-        ZStack {
-            Image("breathing-exercise-bg")
-                .resizable()
-                .scaledToFill()
+        GeometryReader { geometry in
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black, Color.blue]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
                 .edgesIgnoringSafeArea(.all)
 
-            VStack(alignment: .leading) {
-                // Featured Breathing Exercise
                 VStack(alignment: .leading) {
-                    Text(exercises[2].name)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                    Text(exercises[2].description)
-                        .font(.title3)
-                        .foregroundColor(.white)
-                        .lineLimit(3)
-                        .truncationMode(.tail)
-                        .padding(.top, 5)
-                        .frame(width: 600, height: 150)
-                    HStack {
-                        Button(action: {
-                            selectedExercise = exercises[2]
-                            showHomeView = false
-                        }) {
-                            Text("Start")
-                        }
-                        .buttonStyle(CustomButtonStyle())
-                        .padding(.top, 10)
-                        
-                        Button(action: {
-                            // Show more info
-                        }) {
-                            Text("More Info")
-                        }
-                        .buttonStyle(CustomButtonStyle())
-                        .padding(.top, 10)
-                    }
-                }
-                .padding()
-                .background(Color.black.opacity(0.7))
-                .cornerRadius(10)
-                .padding()
+                    Spacer()
 
-                // Other Breathing Exercises
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(exercises) { exercise in
-                            VStack(alignment: .leading) {
-                                Text(exercise.name)
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                Text(exercise.description)
-                                    .font(.body)
-                                    .foregroundColor(.white)
-                                    .lineLimit(2)
-                                    .truncationMode(.tail)
-                                    .padding(.top, 5)
-                                HStack {
-                                    Button(action: {
-                                        selectedExercise = exercise
-                                        showHomeView = false
-                                    }) {
-                                        Text("Start")
-                                    }
-                                    .buttonStyle(CustomButtonStyle())
-                                    .padding(.top, 10)
-                                    
-                                    Button(action: {
-                                        // Show more info
-                                    }) {
-                                        Text("More Info")
-                                    }
-                                    .buttonStyle(CustomButtonStyle())
-                                    .padding(.top, 10)
-                                }
+                    // Featured Breathing Exercise
+                    VStack(alignment: .leading) {
+                        Text(exercises[2].name)
+                            .font(.system(size: 48)) // Increased font size
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        Text(exercises[2].description)
+                            .font(.title3)
+                            .foregroundColor(.white)
+                            .lineLimit(3)
+                            .truncationMode(.tail)
+                            .padding(.top, 5)
+                            .frame(maxWidth: geometry.size.width * 0.45) // Setting max width
+                        HStack {
+                            Button(action: {
+                                selectedExercise = exercises[2]
+                                showHomeView = false
+                            }) {
+                                Text("Start")
                             }
-                            .padding()
-                            .background(Color.black.opacity(0.7))
-                            .cornerRadius(10)
-                            .frame(width: 300)
+                            .buttonStyle(CustomButtonStyle())
+                            .padding(.top, 10)
+
+                            Button(action: {
+                                // Show more info
+                            }) {
+                                Text("More Info")
+                            }
+                            .buttonStyle(CustomButtonStyle())
+                            .padding(.top, 10)
                         }
                     }
                     .padding()
+                    .background(Color.black.opacity(0.7))
+                    .cornerRadius(10)
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
+
+                    // Other Breathing Exercises
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            ForEach(exercises) { exercise in
+                                VStack(alignment: .leading) {
+                                    Text(exercise.name)
+                                        .font(.title2)
+                                        .foregroundColor(.white)
+                                    Text(exercise.description)
+                                        .font(.body)
+                                        .foregroundColor(.white)
+                                        .lineLimit(2)
+                                        .truncationMode(.tail)
+                                        .padding(.top, 5)
+                                    HStack {
+                                        Button(action: {
+                                            selectedExercise = exercise
+                                            showHomeView = false
+                                        }) {
+                                            Text("Start")
+                                        }
+                                        .buttonStyle(CustomButtonStyle())
+                                        .padding(.top, 10)
+
+                                        Button(action: {
+                                            // Show more info
+                                        }) {
+                                            Text("More Info")
+                                        }
+                                        .buttonStyle(CustomButtonStyle())
+                                        .padding(.top, 10)
+                                    }
+                                }
+                                .padding()
+                                .background(Color.black.opacity(0.7))
+                                .cornerRadius(10)
+                                .frame(width: 300)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+                    .padding(.bottom, 20)
                 }
+                .frame(maxHeight: .infinity, alignment: .bottomLeading)
             }
-            .padding(.top, 350)
         }
     }
 }
