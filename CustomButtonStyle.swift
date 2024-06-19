@@ -1,13 +1,33 @@
 import SwiftUI
 
-struct CustomButtonStyle: ButtonStyle {
+struct PlayButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding()
-            .background(Color.white)
-            .foregroundColor(.black)
-            .clipShape(Capsule())
-            .shadow(color: .black, radius: 5, x: 0, y: 5)
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+        HStack {
+            Image(systemName: "play.fill")
+                .foregroundColor(.black)
+            configuration.label
+                .foregroundColor(.black)
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(8)
+        .shadow(radius: 10)
+        .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+    }
+}
+
+struct MoreInfoButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            Image(systemName: "info.circle")
+                .foregroundColor(.white)
+            configuration.label
+                .foregroundColor(.white)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.7))
+        .cornerRadius(8)
+        .shadow(radius: 10)
+        .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
     }
 }

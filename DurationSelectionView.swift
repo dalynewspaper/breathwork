@@ -27,19 +27,21 @@ struct DurationSelectionView: View {
                     showDurationSelection = false
                     showCountdown = true
                 }
-                .buttonStyle(CustomButtonStyle())
+                .buttonStyle(PlayButtonStyle())
+                
                 Button("3 Minutes") {
                     selectedDuration = 180
                     showDurationSelection = false
                     showCountdown = true
                 }
-                .buttonStyle(CustomButtonStyle())
+                .buttonStyle(PlayButtonStyle())
+                
                 Button("5 Minutes") {
                     selectedDuration = 300
                     showDurationSelection = false
                     showCountdown = true
                 }
-                .buttonStyle(CustomButtonStyle())
+                .buttonStyle(PlayButtonStyle())
             }
             .padding()
         }

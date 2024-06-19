@@ -1,8 +1,13 @@
-import Foundation
+import SwiftUI
 
-struct BreathingExercise: Identifiable {
+struct BreathingExercise: Identifiable, Equatable {
     let id = UUID()
     let name: String
     let duration: Double
     let description: String
+    let detailedDescription: String
+
+    static func ==(lhs: BreathingExercise, rhs: BreathingExercise) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
