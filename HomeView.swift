@@ -58,7 +58,7 @@ struct HomeView: View {
                                    showHomeView = false
                                }) {
                                    HStack {
-                                       Text("Start")
+                                       Text("Play")
                                    }
                                }
                                .buttonStyle(PlayButtonStyle())
@@ -117,8 +117,6 @@ struct HomeView: View {
                    .frame(maxHeight: .infinity, alignment: .bottomLeading)
 
                    if showDetail, let detailExercise = selectedDetailExercise {
-                       Color.black.opacity(0.4)
-                           .edgesIgnoringSafeArea(.all)
                        ModalView(exercise: detailExercise, isPresented: $showDetail)
                            .transition(.move(edge: .bottom))
                            .animation(.spring())
@@ -127,3 +125,5 @@ struct HomeView: View {
            }
        }
    }
+
+
