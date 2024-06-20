@@ -8,13 +8,13 @@ struct DurationSelectionView: View {
     var body: some View {
         VStack {
             Text("Box Breathing")
-                .font(.largeTitle)  // Make the title larger
-                .fontWeight(.bold)  // Make the title bold
+                .font(.largeTitle)
+                .fontWeight(.bold)
                 .padding(.bottom, 10)
             
             Text("Inhale for 4 seconds, hold the breath for 4 seconds, exhale for 4 seconds, and hold the breath again for 4 seconds. Used to calm the mind, reduce stress, and improve concentration. It’s often used by athletes and military personnel to stay focused under pressure.")
-                .font(.body)  // Set the font size for the subheading
-                .multilineTextAlignment(.center)  // Center the subheading text
+                .font(.body)
+                .multilineTextAlignment(.center)
                 .padding(.bottom, 20)
 
             Text("Select Your Breathing Duration")
@@ -27,24 +27,24 @@ struct DurationSelectionView: View {
                     showDurationSelection = false
                     showCountdown = true
                 }
-                .buttonStyle(PlayButtonStyle())
+                .buttonStyle(DurationButtonStyle())
                 
                 Button("3 Minutes") {
                     selectedDuration = 180
                     showDurationSelection = false
                     showCountdown = true
                 }
-                .buttonStyle(PlayButtonStyle())
+                .buttonStyle(DurationButtonStyle())
                 
                 Button("5 Minutes") {
                     selectedDuration = 300
                     showDurationSelection = false
                     showCountdown = true
                 }
-                .buttonStyle(PlayButtonStyle())
+                .buttonStyle(DurationButtonStyle())
             }
             .padding()
         }
-        .padding()  // Add padding around the entire VStack for better spacing
+        .padding()
     }
 }
