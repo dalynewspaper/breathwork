@@ -8,7 +8,8 @@ struct HomeView: View {
     @State private var selectedDuration: Double = 60
     @State private var showDurationSelection: Bool = false
     @State private var showCountdown: Bool = false
-    
+    @State private var hoveredExercise: BreathingExercise?
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -19,9 +20,9 @@ struct HomeView: View {
                 )
                 .edgesIgnoringSafeArea(.all)
 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 20) {
                     Spacer()
-
+                    
                     // Featured Breathing Exercise
                     VStack(alignment: .leading) {
                         Text(exercises[2].name)
@@ -79,7 +80,6 @@ struct HomeView: View {
                     .background(Color.black.opacity(0.7))
                     .cornerRadius(10)
                     .padding(.horizontal)
-                    .padding(.bottom, 20)
 
                     // Other Breathing Exercises
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -96,24 +96,52 @@ struct HomeView: View {
                                         .truncationMode(.tail)
                                         .padding(.top, 5)
                                         .frame(maxWidth: geometry.size.width * 0.45, alignment: .leading)
+                                    if hoveredExercise == exercise {
+                                        HStack {
+                                            Button(action: {
+                                                selectedExercise = exercise
+                                                showHomeView = false
+                                            }) {
+                                                HStack {
+                                                    Text("Play")
+                                                }
+                                            }
+                                            .buttonStyle(PlayButtonStyle())
+
+                                            Button(action: {
+                                                selectedDetailExercise = exercise
+                                                showDetail = true
+                                            }) {
+                                                HStack {
+                                                    Text("More Info")
+                                                }
+                                            }
+                                            .buttonStyle(MoreInfoButtonStyle())
+                                        }
+                                        .padding(.top, 10)
+                                    }
                                 }
                                 .padding()
                                 .background(Color.black.opacity(0.7))
                                 .cornerRadius(10)
-                                .frame(width: 300, height: 250)
+                                .frame(width: 300, height: hoveredExercise == exercise ? 540 : 270) // Adjust height based on hover
                                 .scaleEffect(selectedDetailExercise == exercise ? 1.1 : 1.0)
                                 .onTapGesture {
                                     selectedDetailExercise = exercise
                                     showDetail = true
+                                }
+                                .onHover { hovering in
+                                    hoveredExercise = hovering ? exercise : nil
                                 }
                                 .animation(.spring())
                             }
                         }
                         .padding(.horizontal)
                     }
-                    .padding(.bottom, 20)
+                    .frame(height: 270) // Ensure the height here is appropriate for your content
+                    .padding(.bottom, 10)
                 }
-                .frame(maxHeight: .infinity, alignment: .bottomLeading)
+                .frame(maxHeight: .infinity, alignment: .topLeading)
 
                 if showDetail, let detailExercise = selectedDetailExercise {
                     ModalView(exercise: detailExercise, isPresented: $showDetail, selectedDuration: $selectedDuration)
