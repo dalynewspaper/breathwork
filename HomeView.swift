@@ -3,9 +3,9 @@ import SwiftUI
 struct HomeView: View {
     @Binding var showHomeView: Bool
     @Binding var selectedExercise: BreathingExercise?
+    @Binding var selectedDuration: Double
     @State private var showDetail = false
     @State private var selectedDetailExercise: BreathingExercise?
-    @State private var selectedDuration: Double = 60
     @State private var showDurationSelection: Bool = false
     @State private var showCountdown: Bool = false
     @State private var hoveredExercise: BreathingExercise?
@@ -144,7 +144,7 @@ struct HomeView: View {
                 .frame(maxHeight: .infinity, alignment: .topLeading)
 
                 if showDetail, let detailExercise = selectedDetailExercise {
-                    ModalView(exercise: detailExercise, isPresented: $showDetail, selectedDuration: $selectedDuration)
+                    ModalView(exercise: detailExercise, isPresented: $showDetail, showHomeView: $showHomeView, selectedExercise: $selectedExercise, selectedDuration: $selectedDuration)
                         .transition(.move(edge: .bottom))
                         .animation(.spring())
                 }

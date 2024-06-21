@@ -16,8 +16,8 @@ struct BreathingSessionView: View {
     let timer = Timer.publish(every: 4, on: .main, in: .common).autoconnect()
     let sessionTimer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
-    init(exercise: BreathingExercise, showHomeView: Binding<Bool>) {
-        self._remainingTime = State(initialValue: Double(exercise.duration))
+    init(exercise: BreathingExercise, showHomeView: Binding<Bool>, selectedDuration: Double) {
+        self._remainingTime = State(initialValue: selectedDuration)
         self._showHomeView = showHomeView
     }
 

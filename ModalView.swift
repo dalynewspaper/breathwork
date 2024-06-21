@@ -3,6 +3,8 @@ import SwiftUI
 struct ModalView: View {
     var exercise: BreathingExercise
     @Binding var isPresented: Bool
+    @Binding var showHomeView: Bool
+    @Binding var selectedExercise: BreathingExercise?
     @Binding var selectedDuration: Double
     @State private var showDurationSelection: Bool = false
     @State private var showCountdown: Bool = false
@@ -38,7 +40,9 @@ struct ModalView: View {
                                 HStack {
                                     // Play Button
                                     Button(action: {
-                                        // Action for play button
+                                        selectedExercise = exercise
+                                        showHomeView = false
+                                        isPresented = false
                                     }) {
                                         HStack {
                                             Text("Play")
