@@ -3,6 +3,9 @@ import SwiftUI
 struct ModalView: View {
     var exercise: BreathingExercise
     @Binding var isPresented: Bool
+    @Binding var selectedDuration: Double
+    @State private var showDurationSelection: Bool = false
+    @State private var showCountdown: Bool = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -31,16 +34,35 @@ struct ModalView: View {
                                     .foregroundColor(.white)
                                     .padding(.top)
 
-                                // Play Button
-                                Button(action: {
-                                    // Action for play button
-                                }) {
-                                    HStack {
-                                        Text("Play")
+                                // HStack for Play and Duration Buttons
+                                HStack {
+                                    // Play Button
+                                    Button(action: {
+                                        // Action for play button
+                                    }) {
+                                        HStack {
+                                            Text("Play")
+                                        }
+                                    }
+                                    .buttonStyle(PlayButtonStyle())
+                                    .padding(.bottom)
+
+                                    // Duration Button
+                                    Button(action: {
+                                        showDurationSelection.toggle()
+                                    }) {
+                                        HStack {
+                                            Image(systemName: "clock")
+                                            Text("\(Int(selectedDuration / 60)) minute\(selectedDuration > 60 ? "s" : "")")
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                    .buttonStyle(HomeDurationButtonStyle())
+                                    .padding(.bottom)
+                                    .sheet(isPresented: $showDurationSelection) {
+                                        DurationSelectionView(showDurationSelection: $showDurationSelection, selectedDuration: $selectedDuration, showCountdown: $showCountdown)
                                     }
                                 }
-                                .buttonStyle(PlayButtonStyle())
-                                .padding(.bottom)
 
                                 // Exercise Description
                                 Text(exercise.detailedDescription)

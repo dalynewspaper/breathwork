@@ -68,6 +68,8 @@ struct HomeView: View {
                                 }
                             }
                             .padding(.horizontal)
+                            .padding(.top, 10)
+                            .buttonStyle(HomeDurationButtonStyle())
                             .sheet(isPresented: $showDurationSelection) {
                                 DurationSelectionView(showDurationSelection: $showDurationSelection, selectedDuration: $selectedDuration, showCountdown: $showCountdown)
                             }
@@ -114,7 +116,7 @@ struct HomeView: View {
                 .frame(maxHeight: .infinity, alignment: .bottomLeading)
 
                 if showDetail, let detailExercise = selectedDetailExercise {
-                    ModalView(exercise: detailExercise, isPresented: $showDetail)
+                    ModalView(exercise: detailExercise, isPresented: $showDetail, selectedDuration: $selectedDuration)
                         .transition(.move(edge: .bottom))
                         .animation(.spring())
                 }
