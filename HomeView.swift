@@ -10,6 +10,8 @@ struct HomeView: View {
     @State private var showCountdown: Bool = false
     @State private var hoveredExercise: BreathingExercise?
 
+    private let featuredExercise = exercises[2] // Select the featured exercise
+
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -22,14 +24,14 @@ struct HomeView: View {
 
                 VStack(alignment: .leading, spacing: 20) {
                     Spacer()
-                    
+
                     // Featured Breathing Exercise
                     VStack(alignment: .leading) {
-                        Text(exercises[2].name)
+                        Text(featuredExercise.name)
                             .font(.system(size: 48))
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                        Text(exercises[2].description)
+                        Text(featuredExercise.description)
                             .font(.title3)
                             .foregroundColor(.white)
                             .lineLimit(3)
@@ -38,7 +40,7 @@ struct HomeView: View {
                             .frame(maxWidth: geometry.size.width * 0.45, alignment: .leading)
                         HStack {
                             Button(action: {
-                                selectedExercise = exercises[2]
+                                selectedExercise = featuredExercise
                                 showHomeView = false
                             }) {
                                 HStack {
@@ -49,7 +51,7 @@ struct HomeView: View {
                             .padding(.top, 10)
 
                             Button(action: {
-                                selectedDetailExercise = exercises[2]
+                                selectedDetailExercise = featuredExercise
                                 showDetail = true
                             }) {
                                 HStack {
@@ -84,7 +86,7 @@ struct HomeView: View {
                     // Other Breathing Exercises
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20) {
-                            ForEach(exercises) { exercise in
+                            ForEach(exercises.filter { $0.id != featuredExercise.id }) { exercise in
                                 VStack(alignment: .leading) {
                                     Text(exercise.name)
                                         .font(.title2)

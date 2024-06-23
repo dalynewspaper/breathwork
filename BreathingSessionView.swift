@@ -6,10 +6,9 @@ struct BreathingSessionView: View {
     @State private var totalHeight: CGFloat = 0
     @State private var progress: CGFloat = 0
     @State private var remainingTime: Double
-    @State private var backgroundColor: Color = Color.blue.opacity(0.1)
+    @State private var backgroundColor: Color = Color.blue.opacity(0.7)
     @State private var showSummary = false
-    @State private var countdownText: String = "00:00"
-    @State private var phaseText: String = "Hold"
+    @State private var phaseText: String = "Inhale"
     @State private var showCancel = false
     @Binding var showHomeView: Bool
 
@@ -45,15 +44,17 @@ struct BreathingSessionView: View {
 
                     Spacer()
 
-                    // Instruction Text
+                    // Instruction Text at the Bottom
                     Text(phaseText)
                         .font(.largeTitle)
+                        .fontWeight(.bold)
                         .foregroundColor(.white)
                         .padding()
-                        .transition(.scale)
-                        .animation(.easeInOut(duration: 0.5))
-
-                    Spacer()
+                        .background(Color.black.opacity(0.7))
+                        .cornerRadius(10)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.bottom, 50)
+                        .animation(.none)
                 }
                 .onAppear {
                     totalHeight = geometry.size.height
@@ -72,7 +73,6 @@ struct BreathingSessionView: View {
                             ExitButtonView()
                                 .padding()
                                 .onTapGesture {
-                                    // Navigate back to HomeView
                                     showSummary = false
                                     remainingTime = 0
                                     showHomeView = true
@@ -116,15 +116,15 @@ struct BreathingSessionView: View {
     private func getCurrentColor() -> Color {
         switch phase {
         case 0:
-            return Color.green.opacity(0.3)
+            return Color.green.opacity(0.7)
         case 1:
-            return Color.yellow.opacity(0.3)
+            return Color.yellow.opacity(0.7)
         case 2:
-            return Color.blue.opacity(0.3)
+            return Color.blue.opacity(0.7)
         case 3:
-            return Color.purple.opacity(0.3)
+            return Color.purple.opacity(0.7)
         default:
-            return Color.blue.opacity(0.1)
+            return Color.blue.opacity(0.7)
         }
     }
 
