@@ -5,9 +5,10 @@ struct BreathingSessionView: View {
     @State private var barHeight: CGFloat = 15
     @State private var totalHeight: CGFloat = 0
     @State private var remainingTime: Double
+    @State private var phaseRemainingTime: Double = 0
     @State private var backgroundColor: Color = Color.blue.opacity(0.7)
     @State private var showSummary = false
-    @State private var phaseText: String = "Hold"
+    @State private var phaseText: String = ""
     @State private var showCancel = false
     @Binding var showHomeView: Bool
 
@@ -51,7 +52,7 @@ struct BreathingSessionView: View {
                     .transition(.opacity)
 
                 VStack {
-                    CountdownView(showCountdown: $showCountdown, countdown: $remainingTime, showBreathingSession: .constant(true))
+                    Text(timeString(time: remainingTime))
                         .font(.largeTitle)
                         .foregroundColor(.white)
                         .padding(.top, 40)
@@ -76,11 +77,6 @@ struct BreathingSessionView: View {
                         .cornerRadius(10)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.bottom, 50)
-
-                    Button("Select Duration") {
-                        showDurationSelection = true
-                    }
-                    .buttonStyle(DurationButtonStyle())
                 }
                 .onAppear {
                     totalHeight = geometry.size.height
@@ -118,6 +114,9 @@ struct BreathingSessionView: View {
     }
 
     private func startSession() {
+        phaseIndex = 0 // Start with the first phase
+        phaseRemainingTime = currentPhaseDuration()
+        updatePhaseText()
         startPhaseTimer()
         startCountdownTimer()
     }
@@ -134,11 +133,18 @@ struct BreathingSessionView: View {
     private func scheduleNextPhase() {
         phaseTimer?.invalidate()
         let duration = currentPhaseDuration()
-        phaseTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { _ in
-            withAnimation(.easeInOut(duration: duration)) {
-                nextPhase(totalHeight: totalHeight)
+        phaseRemainingTime = duration
+        phaseTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if phaseRemainingTime > 0 {
+                phaseRemainingTime -= 1
+                updatePhaseText()
+            } else {
+                timer.invalidate()
+                withAnimation(.easeInOut(duration: duration)) {
+                    nextPhase(totalHeight: totalHeight)
+                }
+                scheduleNextPhase() // Schedule the next phase
             }
-            scheduleNextPhase() // Schedule the next phase
         }
     }
 
@@ -156,8 +162,9 @@ struct BreathingSessionView: View {
     private func nextPhase(totalHeight: CGFloat) {
         if phases.isEmpty { return }
 
+        phaseIndex = (phaseIndex + 1) % phases.count
         let currentPhase = phases[phaseIndex]
-        phaseText = currentPhase.name
+        phaseText = "\(currentPhase.name) for \(Int(currentPhase.duration)) seconds"
         backgroundColor = currentPhase.color
 
         switch currentPhase.name {
@@ -171,10 +178,21 @@ struct BreathingSessionView: View {
             break
         }
 
-        phaseIndex = (phaseIndex + 1) % phases.count
+        phaseRemainingTime = currentPhase.duration
+    }
+
+    private func updatePhaseText() {
+        let currentPhase = phases[phaseIndex]
+        phaseText = "\(currentPhase.name) for \(Int(phaseRemainingTime)) seconds"
     }
 
     private func currentPhaseDuration() -> TimeInterval {
         return phases.isEmpty ? 1 : phases[phaseIndex].duration
+    }
+
+    private func timeString(time: Double) -> String {
+        let minutes = Int(time) / 60
+        let seconds = Int(time) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
 }
