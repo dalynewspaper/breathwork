@@ -74,7 +74,7 @@ struct HomeView: View {
                             .padding(.top, 10)
                             .buttonStyle(HomeDurationButtonStyle())
                             .sheet(isPresented: $showDurationSelection) {
-                                DurationSelectionView(showDurationSelection: $showDurationSelection, selectedDuration: $selectedDuration, showCountdown: $showCountdown)
+                                DurationSelectionView(showDurationSelection: $showDurationSelection, selectedDuration: $selectedDuration, showCountdown: $showCountdown, exercise: featuredExercise)
                             }
                         }
                     }

@@ -12,9 +12,34 @@ struct BreathingExerciseDetailView: View {
                 .padding(.bottom, 10)
 
             ScrollView {
-                Text(exercise.detailedDescription)
-                    .font(.body)
-                    .padding(.bottom, 20)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("How it works:")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    Text(exercise.howItWorks)
+                        .font(.body)
+                    
+                    Text("Purpose:")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .padding(.top, 10)
+                    Text(exercise.purpose)
+                        .font(.body)
+                    
+                    Text("Instructions:")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .padding(.top, 10)
+                    VStack(alignment: .leading, spacing: 5) {
+                        ForEach(exercise.instructions.indices, id: \.self) { index in
+                            Text("\(index + 1). \(exercise.instructions[index])")
+                                .font(.body)
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .multilineTextAlignment(.leading)
+                .padding(.bottom, 20)
             }
 
             Button(action: {

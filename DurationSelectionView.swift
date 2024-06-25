@@ -4,18 +4,14 @@ struct DurationSelectionView: View {
     @Binding var showDurationSelection: Bool
     @Binding var selectedDuration: Double
     @Binding var showCountdown: Bool
+    var exercise: BreathingExercise
 
     var body: some View {
         VStack {
-            Text("Box Breathing")
+            Text(exercise.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .padding(.bottom, 10)
-            
-            Text("Inhale for 4 seconds, hold the breath for 4 seconds, exhale for 4 seconds, and hold the breath again for 4 seconds. Used to calm the mind, reduce stress, and improve concentration. It’s often used by athletes and military personnel to stay focused under pressure.")
-                .font(.body)
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 20)
 
             Text("Select Your Breathing Duration")
                 .font(.title2)
@@ -44,7 +40,24 @@ struct DurationSelectionView: View {
                 .buttonStyle(DurationButtonStyle())
             }
             .padding()
+            
+            Button(action: {
+                showDurationSelection = false
+            }) {
+                Text("Close")
+                    .padding()
+                    .background(Color.gray.opacity(0.7))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .shadow(radius: 10)
+            }
+            .padding(.top, 10)
         }
+        .padding()
+        .frame(maxWidth: 400)
+        .background(Color.white)
+        .cornerRadius(10)
+        .shadow(radius: 20)
         .padding()
     }
 }

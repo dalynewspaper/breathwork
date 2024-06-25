@@ -9,12 +9,11 @@
 /* Begin PBXBuildFile section */
 		95830FAD2C221A0A00547D47 /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95830FAC2C221A0A00547D47 /* info.plist */; };
 		95DB0B4B2C22DF9F009C7D6F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB0B4A2C22DF9F009C7D6F /* HomeView.swift */; };
-		95DB0B4D2C22E003009C7D6F /* BreathingExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB0B4C2C22E003009C7D6F /* BreathingExercise.swift */; };
 		95DB0B4F2C235C75009C7D6F /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB0B4E2C235C75009C7D6F /* ModalView.swift */; };
 		95DB0B512C2363BC009C7D6F /* BreathingExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB0B502C2363BC009C7D6F /* BreathingExerciseDetailView.swift */; };
 		95DB0B592C24EDD5009C7D6F /* Exercises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB0B582C24EDD5009C7D6F /* Exercises.swift */; };
+		95DB0B5B2C28159D009C7D6F /* BreathingPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DB0B5A2C28159D009C7D6F /* BreathingPhase.swift */; };
 		95E304922C21D3AF00536254 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304912C21D3AF00536254 /* ExitButtonView.swift */; };
-		95E304942C21D3C600536254 /* CountdownTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304932C21D3C600536254 /* CountdownTimerView.swift */; };
 		95E304962C21D5EF00536254 /* CustomExitButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304952C21D5EF00536254 /* CustomExitButtonStyle.swift */; };
 		95E304982C21D6BF00536254 /* SessionSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E304972C21D6BF00536254 /* SessionSummaryView.swift */; };
 		95EEB04F2C1C8C80009CF84C /* BreathWorkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EEB04E2C1C8C80009CF84C /* BreathWorkApp.swift */; };
@@ -55,12 +54,11 @@
 /* Begin PBXFileReference section */
 		95830FAC2C221A0A00547D47 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
 		95DB0B4A2C22DF9F009C7D6F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		95DB0B4C2C22E003009C7D6F /* BreathingExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExercise.swift; sourceTree = "<group>"; };
 		95DB0B4E2C235C75009C7D6F /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		95DB0B502C2363BC009C7D6F /* BreathingExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingExerciseDetailView.swift; sourceTree = "<group>"; };
 		95DB0B582C24EDD5009C7D6F /* Exercises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercises.swift; sourceTree = "<group>"; };
+		95DB0B5A2C28159D009C7D6F /* BreathingPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathingPhase.swift; sourceTree = "<group>"; };
 		95E304912C21D3AF00536254 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
-		95E304932C21D3C600536254 /* CountdownTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownTimerView.swift; sourceTree = "<group>"; };
 		95E304952C21D5EF00536254 /* CustomExitButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitButtonStyle.swift; sourceTree = "<group>"; };
 		95E304972C21D6BF00536254 /* SessionSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSummaryView.swift; sourceTree = "<group>"; };
 		95EEB04B2C1C8C80009CF84C /* BreathWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreathWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,15 +111,14 @@
 		95EEB0422C1C8C80009CF84C = {
 			isa = PBXGroup;
 			children = (
+				95DB0B5A2C28159D009C7D6F /* BreathingPhase.swift */,
 				95DB0B582C24EDD5009C7D6F /* Exercises.swift */,
 				95DB0B502C2363BC009C7D6F /* BreathingExerciseDetailView.swift */,
 				95DB0B4E2C235C75009C7D6F /* ModalView.swift */,
-				95DB0B4C2C22E003009C7D6F /* BreathingExercise.swift */,
 				95DB0B4A2C22DF9F009C7D6F /* HomeView.swift */,
 				95830FAC2C221A0A00547D47 /* info.plist */,
 				95E304972C21D6BF00536254 /* SessionSummaryView.swift */,
 				95E304952C21D5EF00536254 /* CustomExitButtonStyle.swift */,
-				95E304932C21D3C600536254 /* CountdownTimerView.swift */,
 				95E304912C21D3AF00536254 /* ExitButtonView.swift */,
 				95EEB08D2C20E38A009CF84C /* CustomButtonStyle.swift */,
 				95EEB08B2C20D023009CF84C /* Theme.swift */,
@@ -324,7 +321,6 @@
 			files = (
 				95EEB0822C1D078D009CF84C /* KeyEventHandlingView.swift in Sources */,
 				95DB0B512C2363BC009C7D6F /* BreathingExerciseDetailView.swift in Sources */,
-				95E304942C21D3C600536254 /* CountdownTimerView.swift in Sources */,
 				95EEB0842C20A44A009CF84C /* WelcomeView.swift in Sources */,
 				95EEB08A2C20A511009CF84C /* BreathingSessionView.swift in Sources */,
 				95E304962C21D5EF00536254 /* CustomExitButtonStyle.swift in Sources */,
@@ -337,10 +333,10 @@
 				95EEB07A2C1CBE96009CF84C /* AppDelegate.swift in Sources */,
 				95E304922C21D3AF00536254 /* ExitButtonView.swift in Sources */,
 				95EEB08C2C20D023009CF84C /* Theme.swift in Sources */,
-				95DB0B4D2C22E003009C7D6F /* BreathingExercise.swift in Sources */,
 				95EEB0512C1C8C80009CF84C /* ContentView.swift in Sources */,
 				95DB0B4B2C22DF9F009C7D6F /* HomeView.swift in Sources */,
 				95EEB04F2C1C8C80009CF84C /* BreathWorkApp.swift in Sources */,
+				95DB0B5B2C28159D009C7D6F /* BreathingPhase.swift in Sources */,
 				95E304982C21D6BF00536254 /* SessionSummaryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
