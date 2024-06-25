@@ -6,58 +6,115 @@ struct DurationSelectionView: View {
     @Binding var showCountdown: Bool
     var exercise: BreathingExercise
 
+    @Environment(\.colorScheme) var colorScheme
+
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Text(exercise.name)
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .padding(.bottom, 10)
+                .padding(.top, 20)
+                .foregroundColor(.primary)
 
             Text("Select Your Breathing Duration")
                 .font(.title2)
-                .padding(.bottom, 20)
+                .foregroundColor(.secondary)
+                .padding(.bottom, 10)
 
             HStack(spacing: 20) {
-                Button("1 Minute") {
-                    selectedDuration = 60
-                    showDurationSelection = false
-                    showCountdown = true
-                }
-                .buttonStyle(DurationButtonStyle())
-                
-                Button("3 Minutes") {
-                    selectedDuration = 180
-                    showDurationSelection = false
-                    showCountdown = true
-                }
-                .buttonStyle(DurationButtonStyle())
-                
-                Button("5 Minutes") {
-                    selectedDuration = 300
-                    showDurationSelection = false
-                    showCountdown = true
-                }
-                .buttonStyle(DurationButtonStyle())
+                DurationButton(title: "3 Minutes", duration: 180)
+                DurationButton(title: "5 Minutes", duration: 300)
+                DurationButton(title: "7 Minutes", duration: 420)
             }
-            .padding()
-            
+
             Button(action: {
                 showDurationSelection = false
             }) {
                 Text("Close")
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.gray.opacity(0.7))
                     .foregroundColor(.white)
-                    .cornerRadius(8)
+                    .cornerRadius(10)
                     .shadow(radius: 10)
             }
-            .padding(.top, 10)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .padding()
-        .frame(maxWidth: 400)
-        .background(Color.white)
-        .cornerRadius(10)
-        .shadow(radius: 20)
-        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(colorScheme == .dark ? Color.black : Color.white)
+                .shadow(radius: 20)
+        )
+        .frame(maxWidth: 800)
+    }
+
+    @ViewBuilder
+    private func DurationButton(title: String, duration: Double) -> some View {
+        Button(action: {
+            selectedDuration = duration
+            showDurationSelection = false
+            showCountdown = true
+        }) {
+            Text(title)
+                .fontWeight(.semibold)
+                .frame(minWidth: 100) // Ensure the button has enough width for text
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .shadow(radius: 10)
+        }
+        .buttonStyle(HomeDurationButtonStyle())
+    }
+}
+
+struct DurationSelectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            DurationSelectionView(
+                showDurationSelection: .constant(true),
+                selectedDuration: .constant(60),
+                showCountdown: .constant(false),
+                exercise: BreathingExercise(
+                    name: "Box Breathing",
+                    duration: 240,
+                    description: "Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold for 4 seconds.",
+                    howItWorks: "Box breathing involves inhaling, holding the breath, exhaling, and holding again for equal lengths of time. This balanced breathing pattern helps stabilize and calm the mind.",
+                    purpose: "Used to calm the mind, reduce stress, and improve concentration. It’s often used by athletes and military personnel to stay focused under pressure.",
+                    instructions: [
+                        "Sit upright in a comfortable position.",
+                        "Inhale through your nose for 4 seconds.",
+                        "Hold your breath for 4 seconds.",
+                        "Exhale through your nose for 4 seconds.",
+                        "Hold your breath again for 4 seconds.",
+                        "Repeat for 4-5 minutes."
+                    ]
+                )
+            )
+            .preferredColorScheme(.light)
+
+            DurationSelectionView(
+                showDurationSelection: .constant(true),
+                selectedDuration: .constant(60),
+                showCountdown: .constant(false),
+                exercise: BreathingExercise(
+                    name: "Box Breathing",
+                    duration: 240,
+                    description: "Inhale for 4 seconds, hold for 4 seconds, exhale for 4 seconds, hold for 4 seconds.",
+                    howItWorks: "Box breathing involves inhaling, holding the breath, exhaling, and holding again for equal lengths of time. This balanced breathing pattern helps stabilize and calm the mind.",
+                    purpose: "Used to calm the mind, reduce stress, and improve concentration. It’s often used by athletes and military personnel to stay focused under pressure.",
+                    instructions: [
+                        "Sit upright in a comfortable position.",
+                        "Inhale through your nose for 4 seconds.",
+                        "Hold your breath for 4 seconds.",
+                        "Exhale through your nose for 4 seconds.",
+                        "Hold your breath again for 4 seconds.",
+                        "Repeat for 4-5 minutes."
+                    ]
+                )
+            )
+            .preferredColorScheme(.dark)
+        }
     }
 }
