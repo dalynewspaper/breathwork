@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct HomeView: View {
     @Binding var showHomeView: Bool
@@ -9,18 +10,31 @@ struct HomeView: View {
     @State private var showDurationSelection: Bool = false
     @State private var showCountdown: Bool = false
     @State private var hoveredExercise: BreathingExercise?
-
+    @State private var animationAmount: CGFloat = 1.0
+    @State private var particles = [Particle]()
+    @State private var timeOfDay: TimeOfDay = .day
+    
     private let featuredExercise = exercises[2] // Select the featured exercise
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.black, Color.blue]),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .edgesIgnoringSafeArea(.all)
+                // Background Gradient
+                LinearGradient(gradient: Gradient(colors: timeOfDay == .day ? [.blue, .purple] : [.black, .blue]),
+                               startPoint: .top,
+                               endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
+                    .animation(.easeInOut(duration: 2), value: timeOfDay)
+                    .onAppear { setup(geometry: geometry) }
+
+                // Interactive Particles
+                ForEach(particles) { particle in
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: particle.size, height: particle.size)
+                        .position(particle.position)
+                        .animation(Animation.linear(duration: 5).repeatForever(autoreverses: false))
+                }
 
                 VStack(alignment: .leading, spacing: 20) {
                     Spacer()
@@ -144,6 +158,29 @@ struct HomeView: View {
                     .padding(.bottom, 10)
                 }
                 .frame(maxHeight: .infinity, alignment: .topLeading)
+                
+                // Breathing Animation on the upper-right side
+                VStack {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Circle()
+                                .fill(Color.white.opacity(0.5))
+                                .scaleEffect(animationAmount)
+                                .frame(width: 200, height: 200)
+                                .animation(Animation.easeInOut(duration: 4).repeatForever(autoreverses: true))
+                                .onAppear {
+                                    self.animationAmount = 1.0
+                                    withAnimation {
+                                        self.animationAmount = 1.5 // Subtle expansion
+                                    }
+                                }
+                        }
+                    }
+                    Spacer()
+                }
+                .padding(.trailing, 80) // Adjust padding to keep it to the right
+                .padding(.top, 80) // Adjust padding to keep it at the top
 
                 if showDetail, let detailExercise = selectedDetailExercise {
                     ModalView(exercise: detailExercise, isPresented: $showDetail, showHomeView: $showHomeView, selectedExercise: $selectedExercise, selectedDuration: $selectedDuration)
@@ -153,4 +190,38 @@ struct HomeView: View {
             }
         }
     }
+    
+    private func setup(geometry: GeometryProxy) {
+        // Set up particles
+        let screenSize = geometry.size
+        for _ in 0..<20 {
+            let particle = Particle(position: CGPoint(x: CGFloat.random(in: 0...screenSize.width),
+                                                      y: CGFloat.random(in: 0...screenSize.height)),
+                                    size: CGFloat.random(in: 2...8))
+            particles.append(particle)
+        }
+        
+        // Set up day/night cycle
+        updateTimeOfDay()
+    }
+    
+    private func updateTimeOfDay() {
+        let hour = Calendar.current.component(.hour, from: Date())
+        if hour >= 6 && hour < 18 {
+            timeOfDay = .day
+        } else {
+            timeOfDay = .night
+        }
+    }
+}
+
+enum TimeOfDay {
+    case day
+    case night
+}
+
+struct Particle: Identifiable {
+    let id = UUID()
+    var position: CGPoint
+    var size: CGFloat
 }
